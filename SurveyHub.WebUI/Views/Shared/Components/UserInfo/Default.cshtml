@@ -1,0 +1,32 @@
+﻿@model UserInfoDto
+
+<div class="main-navbar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="others-options d-flex align-items-center">
+                <div class="option-item">
+                    <div class="dropdown profile-nav-item">
+                        <a class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="menu-profile">
+                                <span class="name">@Model.Name @Model.Surname</span>
+                            </div>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <div class="profile-header">
+                                <h5 class="fullname">@Model.Name @Model.Surname</h5>
+                                <h7 class="username">@@@Model.Username</h7>
+                            </div>
+                            <ul>
+                                <li><a asp-action="Profile" asp-controller="Home">Profile</a></li>
+                                <li><a asp-action="Settings" asp-controller="Home">Settings</a></li>
+                                <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+</div>
