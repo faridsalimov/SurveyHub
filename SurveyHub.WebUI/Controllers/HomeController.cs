@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using SurveyHub.Business.Abstract;
 using SurveyHub.Entities.Entity;
 using SurveyHub.WebUI.Models;
@@ -16,7 +17,6 @@ namespace SurveyHub.WebUI.Controllers
         private readonly IUserService _userService;
         private IWebHostEnvironment _webHost;
         private CustomIdentityDbContext _dbContext;
-        private readonly ILogger<HomeController> _logger;
 
         public HomeController(UserManager<CustomIdentityUser> userManager, IUserService userService, IWebHostEnvironment webHost, CustomIdentityDbContext dbContext, ILogger<HomeController> logger)
         {
@@ -24,7 +24,6 @@ namespace SurveyHub.WebUI.Controllers
             _userService = userService;
             _webHost = webHost;
             _dbContext = dbContext;
-            _logger = logger;
         }
 
         public IActionResult Index()
@@ -32,15 +31,10 @@ namespace SurveyHub.WebUI.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> GetAllSurveys()
         {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var data = await _dbContext.Surveys.ToListAsync();
 
             var userIds = data.Select(survey => survey.Creator.Id).ToList();
@@ -57,12 +51,6 @@ namespace SurveyHub.WebUI.Controllers
                 {
                     survey.Creator = user;
                 }
-
-                string publishTimeString = survey.PublishTime.ToString();
-                DateTime surveyDateTime = DateTime.Parse(publishTimeString);
-                string formattedDateTime = surveyDateTime.ToString("yyyy-MM-dd HH:mm:ss");
-                formattedDateTime = formattedDateTime.Replace("T", " ");
-                survey.PublishTime = surveyDateTime;
             }
 
             return Ok(data);

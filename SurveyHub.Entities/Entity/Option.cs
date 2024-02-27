@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SurveyHub.Core.Abstraction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SurveyHub.Entities.Entity
 {
-    public class SurveyOption
+    public class Option : IEntity
     {
         public int Id { get; set; }
         public int SurveyId { get; set; }

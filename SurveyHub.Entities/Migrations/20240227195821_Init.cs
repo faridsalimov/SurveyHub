@@ -51,7 +51,7 @@ namespace SurveyHub.Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SurveyOptions",
+                name: "Options",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -61,7 +61,7 @@ namespace SurveyHub.Entities.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SurveyOptions", x => x.Id);
+                    table.PrimaryKey("PK_Options", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,7 +171,7 @@ namespace SurveyHub.Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SurveyResponses",
+                name: "Responses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -182,9 +182,9 @@ namespace SurveyHub.Entities.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SurveyResponses", x => x.Id);
+                    table.PrimaryKey("PK_Responses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SurveyResponses_AspNetUsers_UserId",
+                        name: "FK_Responses_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
@@ -250,8 +250,8 @@ namespace SurveyHub.Entities.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SurveyResponses_UserId",
-                table: "SurveyResponses",
+                name: "IX_Responses_UserId",
+                table: "Responses",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -278,10 +278,10 @@ namespace SurveyHub.Entities.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "SurveyOptions");
+                name: "Options");
 
             migrationBuilder.DropTable(
-                name: "SurveyResponses");
+                name: "Responses");
 
             migrationBuilder.DropTable(
                 name: "Surveys");

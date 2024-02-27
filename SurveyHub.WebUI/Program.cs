@@ -19,6 +19,15 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddScoped<IUserDal, EFUserDal>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<ISurveyDal, EFSurveyDal>();
+builder.Services.AddScoped<ISurveyService, SurveyService>();
+
+builder.Services.AddScoped<IOptionDal, EFOptionDal>();
+builder.Services.AddScoped<IOptionService, OptionService>();
+
+builder.Services.AddScoped<IResponseDal, EFResponseDal>();
+builder.Services.AddScoped<IResponseService, ResponseService>();
+
 var connection = builder.Configuration.GetConnectionString("LocalConnection");
 builder.Services.AddDbContext<CustomIdentityDbContext>(options =>
 {

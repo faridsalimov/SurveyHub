@@ -13,8 +13,8 @@ namespace SurveyHub.Entities.Entity
         public CustomIdentityDbContext(DbContextOptions<CustomIdentityDbContext> options) : base(options) { }
 
         public DbSet<Survey> Surveys { get; set; }
-        public DbSet<SurveyOption> SurveyOptions { get; set; }
-        public DbSet<SurveyResponse> SurveyResponses { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<Response> Responses { get; set; }
 
         public CustomIdentityDbContext() { }
     }
