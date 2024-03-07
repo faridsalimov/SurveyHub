@@ -13,5 +13,6 @@ namespace SurveyHub.Entities.Entity
         public string? Content { get; set; }
         public DateTime PublishTime { get; set; }
         public virtual CustomIdentityUser? Creator { get; set; }
+        public string? CreatorId { get; set; }
     }
 }

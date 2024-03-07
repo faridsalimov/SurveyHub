@@ -12,7 +12,7 @@ using SurveyHub.Entities.Entity;
 namespace SurveyHub.Entities.Migrations
 {
     [DbContext(typeof(CustomIdentityDbContext))]
-    [Migration("20240227195821_Init")]
+    [Migration("20240307155327_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
