@@ -13,5 +13,6 @@ namespace SurveyHub.Entities.Entity
         public int SurveyId { get; set; }
         public int OptionId { get; set; }
         public virtual CustomIdentityUser? User { get; set; }
+        public string? UserId { get; set; }
     }
 }

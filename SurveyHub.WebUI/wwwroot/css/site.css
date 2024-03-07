@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter");
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter");
 
 * {
     padding: 0;
@@ -9,6 +9,7 @@
 body {
     background: whitesmoke;
     font-family: "Inter", sans-serif;
+    overflow-x: hidden;
 }
 
 html {
@@ -28,6 +29,23 @@ html {
 
 body {
     margin-bottom: 60px;
+}
+
+nav {
+    background-color: ghostwhite;
+}
+
+.navbar-brand {
+    color: black;
+    font-weight: bold;
+}
+
+.nav-link, .menu-profile {
+    color: black;
+}
+
+.main-container {
+    padding: 0 20px 0 20px;
 }
 
 .account-login-container, .account-register-container {
@@ -160,45 +178,150 @@ body {
     right: 0 !important;
 }
 
-.post-container {
+.survey-container {
     display: flex;
     border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
     background-color: #f9f9f9;
     border: none;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.post-container .profile-image {
+.survey-container .profile-image {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.post-main {
+.survey-main {
     flex: 1;
 }
 
-.post-username {
+.survey-username {
     font-weight: bold;
 }
 
-.post-date {
+.survey-date {
     font-size: smaller;
     color: #666;
 }
 
-.post-content {
+.survey-content {
     margin-top: 10px;
-}
-
-footer {
-    margin-top: 20px;
 }
 
 .form-check {
     font-size: 1rem;
+}
+
+.add-survey button {
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 17px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    margin-bottom: 20px;
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+    transition-duration: 250ms;
+    transition-property: background-color;
+}
+
+.add-survey button:hover {
+    transition-duration: 250ms;
+    transition-property: background-color;
+    background-color: royalblue;
+}
+
+.add-survey-container {
+    max-width: none;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.add-survey-container form {
+    padding: 20px;
+}
+
+.add-survey-container form input {
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 17px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.add-survey-container form input:focus {
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 17px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    outline: none;
+}
+
+.add-survey-container form input[type="text"] {
+    margin-bottom: 20px;
+}
+
+.add-survey-container form input[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.add-survey-container h1 {
+    margin: 20px 20px 0 20px;
+    font-weight: bold;
+}
+
+.add-survey-container form p {
+    margin: 0 0 5px 0;
+}
+
+.option-input {
+    display: flex;
+    align-items: center;
+}
+
+.add-option-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.add-option-button:hover {
+    background-color: #0056b3;
+}
+
+.remove-option-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.remove-option-button:hover {
+    background-color: #bd2130;
 }

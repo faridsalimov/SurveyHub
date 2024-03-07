@@ -1,0 +1,23 @@
+﻿@model AddSurveyDto
+
+@{
+    ViewData["Title"] = "Add Survey";
+}
+
+<section class="add-survey-container">
+    <h1>Add Survey</h1>
+    <form asp-action="AddSurvey" asp-controller="Home" method="post" id="add-survey-form">
+        <p>Content</p>
+        <input asp-for="Content" type="text" placeholder="enter survey content" required>
+
+        <p>Options</p>
+        <div id="add-survey-options-container">
+            <div class="option-input">
+                <input type="text" name="options[]" placeholder="enter option" required>
+                <button type="button" class="add-option-button">+</button>
+            </div>
+        </div>
+
+        <input class="add-survey-button" type="submit" value="Submit">
+    </form>
+</section>
