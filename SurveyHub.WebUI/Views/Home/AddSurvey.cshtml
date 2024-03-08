@@ -10,6 +10,14 @@
         <p>Content</p>
         <input asp-for="Content" type="text" placeholder="enter survey content" required>
 
+        <p>Content</p>
+        <select class="form-control" id="category" name="CategoryId">
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Value">@category.Text</option>
+            }
+        </select>
+
         <p>Options</p>
         <div id="add-survey-options-container">
             <div class="option-input">

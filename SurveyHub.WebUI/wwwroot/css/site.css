@@ -211,10 +211,80 @@ nav {
 
 .survey-content {
     margin-top: 10px;
+    margin-right: 20px;
+}
+
+.survey-content h5 {
+    display: inline;
+}
+
+.survey-category {
+    font-size: 0.75rem;
+    color: white;
+    padding: 3px 5px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    position: absolute;
+    margin-left: 5px;
+    background-color: dodgerblue;
+}
+
+.category-Technology {
+    background-color: dodgerblue;
+}
+
+.category-Sports {
+    background-color: green;
+}
+
+.category-Entertainment {
+    background-color: orangered;
+}
+
+.category-Politics {
+    background-color: lightcyan;
+}
+
+.category-Food {
+    background-color: orange;
+}
+
+.category-Travel {
+    background-color: forestgreen;
+}
+
+.category-Health {
+    background-color: red;
+}
+
+.category-Fashion {
+    background-color: hotpink;
+}
+
+.category-Education {
+    background-color: lightseagreen;
+}
+
+.category-Environment {
+    background-color: lightskyblue;
+}
+
+.category-Other {
+    background-color: gray;
+}
+
+.options-container {
+    margin-top: 10px;
 }
 
 .form-check {
     font-size: 1rem;
+}
+
+.option-votes-count {
+    font-size: 12px;
+    opacity: 0.7;
 }
 
 .add-survey button {
@@ -253,7 +323,7 @@ nav {
     padding: 20px;
 }
 
-.add-survey-container form input {
+.add-survey-container form input, select {
     height: 40px;
     width: 100%;
     padding: 0 10px;
@@ -263,17 +333,11 @@ nav {
     outline: none;
 }
 
-.add-survey-container form input:focus {
-    height: 40px;
-    width: 100%;
-    padding: 0 10px;
-    font-size: 17px;
+.add-survey-container form input:focus, select:focus {
     border: 1px solid #999;
-    border-radius: 6px;
-    outline: none;
 }
 
-.add-survey-container form input[type="text"] {
+.add-survey-container form input[type="text"], select {
     margin-bottom: 20px;
 }
 
