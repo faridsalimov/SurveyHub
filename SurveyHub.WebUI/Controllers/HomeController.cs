@@ -34,7 +34,8 @@ namespace SurveyHub.WebUI.Controllers
 
         public IActionResult AddSurvey()
         {
-            return View();
+            var addSurveyDto = new AddSurveyDto();
+            return View(addSurveyDto);
         }
 
         [HttpGet]
@@ -62,6 +63,9 @@ namespace SurveyHub.WebUI.Controllers
                 {
                     survey.Creator = surveyCreator;
                 }
+
+                string category = ((Category)survey.CategoryId).ToString();
+                survey.Category = category;
 
                 string publishTimeString = survey.PublishTime.ToString("yyyy-MM-dd HH:mm:ss");
                 DateTime surveyDateTime = DateTime.Parse(publishTimeString);
@@ -122,6 +126,7 @@ namespace SurveyHub.WebUI.Controllers
                 var survey = new Survey
                 {
                     Content = addSurveyDto.Content,
+                    CategoryId = addSurveyDto.CategoryId,
                     PublishTime = DateTime.Now,
                     Creator = user,
                     CreatorId = user.Id
@@ -143,7 +148,7 @@ namespace SurveyHub.WebUI.Controllers
 
                 await _dbContext.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Home");
+                return Ok();
             }
 
             return View(addSurveyDto);

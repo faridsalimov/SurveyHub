@@ -14,6 +14,7 @@
                             <div class="survey-date">${data.surveys[i].publishTime}</div>
                             <div class="survey-content">
                                 <h5>${data.surveys[i].content}</h5>
+                                <span class="survey-category category-${data.surveys[i].category}">${data.surveys[i].category}</span>
                                 <div class="options-container" id="options-${data.surveys[i].id}"></div>
                             </div>
                         </div>
@@ -37,10 +38,18 @@
                         }
                     }
 
+                    var optionVotesCount = 0;
+                    for (var k = 0; k < data.userResponses.length; k++) {
+                        if (data.userResponses[k].optionId === options[j].id) {
+                            optionVotesCount++;
+                        }
+                    }
+
                     optionsContext += `
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="survey-radio${data.surveys[i].id}" key="${options[j].id}" onclick="saveResponse(${data.surveys[i].id}, ${options[j].id})" ${isChecked ? 'checked' : ''}>
                             <label class="form-check-label" for="survey-radio${data.surveys[i].id}">${options[j].text}</label>
+                            <span class="option-votes-count">(${optionVotesCount} votes)</span>
                         </div>
                     `;
                 }
