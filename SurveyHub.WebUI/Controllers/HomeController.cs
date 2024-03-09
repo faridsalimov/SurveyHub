@@ -49,13 +49,14 @@ namespace SurveyHub.WebUI.Controllers
 
             var surveys = await _dbContext.Surveys.ToListAsync();
             var options = await _dbContext.Options.ToListAsync();
-            var responses = await _dbContext.Responses.Where(r => r.UserId == user.Id).ToListAsync();
-
-            var userResponses = responses.Where(r => r.UserId == user.Id).ToList();
+            var responses = await _dbContext.Responses.ToListAsync();
+            var userResponses = await _dbContext.Responses.Where(r => r.UserId == user.Id).ToListAsync();
 
             var userIds = surveys.Select(survey => survey.CreatorId).ToList();
             var users = await _dbContext.Users.Where(u => userIds.Contains(u.Id)).ToListAsync();
             var userDictionary = users.ToDictionary(u => u.Id);
+
+            surveys = surveys.OrderByDescending(survey => survey.PublishTime).ToList();
 
             foreach (var survey in surveys)
             {
@@ -66,13 +67,9 @@ namespace SurveyHub.WebUI.Controllers
 
                 string category = ((Category)survey.CategoryId).ToString();
                 survey.Category = category;
-
-                string publishTimeString = survey.PublishTime.ToString("yyyy-MM-dd HH:mm:ss");
-                DateTime surveyDateTime = DateTime.Parse(publishTimeString);
-                survey.PublishTime = surveyDateTime;
             }
 
-            var data = new { Surveys = surveys, Options = options, UserResponses = userResponses };
+            var data = new { Surveys = surveys, Options = options, Responses = responses, UserResponses = userResponses };
 
             return Ok(data);
         }
@@ -148,7 +145,7 @@ namespace SurveyHub.WebUI.Controllers
 
                 await _dbContext.SaveChangesAsync();
 
-                return Ok();
+                return RedirectToAction("Index", "Home");
             }
 
             return View(addSurveyDto);

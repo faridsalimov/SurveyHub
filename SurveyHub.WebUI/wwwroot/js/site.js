@@ -6,12 +6,13 @@
             var surveyContext = "";
 
             for (var i = 0; i < data.surveys.length; i++) {
+                console.log(data.surveys[i].publishTime);
                 surveyContext += `
                     <div class="survey-container">
                         <img src="https://cdn.discordapp.com/attachments/1070777183326437496/1212130350193573968/no-profile.png?ex=65f0b75b&is=65de425b&hm=dc283c1eec61d2f67e20dce222da1edfade26939627f35f4e16e1a6d5289f181&" alt="Profile" class="profile-image">
                         <div class="survey-main">
                             <div class="survey-username">${data.surveys[i].creator.userName}</div>
-                            <div class="survey-date">${data.surveys[i].publishTime}</div>
+                            <div class="survey-date">${data.surveys[i].publishTime.day}/${data.surveys[i].publishTime.month}/${data.surveys[i].publishTime.year} ${data.surveys[i].publishTime.hour}:${data.surveys[i].publishTime.minute}/${data.surveys[i].publishTime.second}</div>
                             <div class="survey-content">
                                 <h5>${data.surveys[i].content}</h5>
                                 <span class="survey-category category-${data.surveys[i].category}">${data.surveys[i].category}</span>
@@ -39,8 +40,8 @@
                     }
 
                     var optionVotesCount = 0;
-                    for (var k = 0; k < data.userResponses.length; k++) {
-                        if (data.userResponses[k].optionId === options[j].id) {
+                    for (var k = 0; k < data.responses.length; k++) {
+                        if (data.responses[k].optionId === options[j].id) {
                             optionVotesCount++;
                         }
                     }
@@ -91,8 +92,6 @@ $(document).ready(function () {
     });
 
     $("#add-survey-form").submit(function (event) {
-        event.preventDefault();
-
         var formData = $(this).serialize();
 
         $.ajax({
