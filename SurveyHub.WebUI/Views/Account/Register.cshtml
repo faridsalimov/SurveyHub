@@ -8,43 +8,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Survey</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Survey.WebUI.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Survey.WebUI.styles.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/png" href="~/images/logo.png">
 </head>
 <body>
-    <section class="account-register-container">
-        <h1>Register</h1>
-        <form asp-action="Register" asp-controller="Account" method="post">
-            <p>Name</p>
-            <input asp-for="Name" type="text" placeholder="enter your name">
+    <section class="account-background">
+        <img/>
+        <section class="account-register-container">
+            <h1>Register</h1>
+            <form asp-action="Register" asp-controller="Account" method="post">
+                <p>Name</p>
+                <input asp-for="Name" type="text" placeholder="enter your name">
 
-            <p>Surname</p>
-            <input asp-for="Surname" type="text" placeholder="enter your surname">
+                <p>Surname</p>
+                <input asp-for="Surname" type="text" placeholder="enter your surname">
 
-            <p>Username</p>
-            <input asp-for="Username" type="text" placeholder="enter your username">
+                <p>Username</p>
+                <input asp-for="Username" type="text" placeholder="enter your username">
 
-            <p>Email</p>
-            <input asp-for="Email" type="text" placeholder="example@mail.com">
+                <p>Email</p>
+                <input asp-for="Email" type="text" placeholder="example@mail.com">
 
-            <p>Password</p>
-            <input asp-for="Password" type="password" placeholder="enter your password">
+                <p>Password</p>
+                <input asp-for="Password" type="password" placeholder="enter your password">
 
-            <section class="account-register-agreement">
-                <input asp-for="IsAcceptTermsAndPrivacy" type="checkbox">
-                <label asp-for="IsAcceptTermsAndPrivacy" for="agreement">I agree with Terms and Privacy</label>
+                <section class="account-register-agreement">
+                    <input asp-for="IsAcceptTermsAndPrivacy" type="checkbox">
+                    <label asp-for="IsAcceptTermsAndPrivacy" for="agreement">I agree with Terms and Privacy</label>
+                </section>
+
+                <input class="account-register-button" type="submit" value="Register">
+            </form>
+            <section class="account-register-footer">
+                <p>Already have an account? <a asp-action="Login" asp-controller="Account" class="account-register-login">Login</a></p>
             </section>
-
-            <input class="account-register-button" type="submit" value="Register">
-        </form>
-        <section class="account-register-footer">
-            <p>Already have an account? <a asp-action="Login" asp-controller="Account" class="account-register-login">Login</a></p>
         </section>
     </section>
 </body>

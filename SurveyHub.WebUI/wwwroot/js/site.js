@@ -9,15 +9,14 @@
             for (var i = 0; i < data.surveys.length; i++) {
                 surveyContext += `
                     <div class="survey-container" key="${data.surveys[i].id}">
-                        <img src="/images/users/no-profile.jpg" alt="${data.surveys[i].creator.userName}" class="profile-image">
+                        <a href="/Account/Profile?userId=${data.surveys[i].creator.id}">
+                            <img src="/images/users/${data.surveys[i].creator.imageUrl}" alt="${data.surveys[i].creator.userName}" class="profile-image">
+                        </a>
                         <div class="survey-main">
-                            
                 `;
 
                 if (isAdmin === "is-admin") {
-                    surveyContext += `
-                        <i class="delete-survey fa fa-trash" onclick="deleteSurvey(${data.surveys[i].id})"></i>
-                    `
+                    surveyContext += `<i class="delete-survey fa fa-trash" onclick="deleteSurvey(${data.surveys[i].id})"></i>`
                 }
 
                 surveyContext += `
@@ -91,7 +90,7 @@ async function saveResponse(surveyId, optionId) {
 
 async function deleteSurvey(surveyId) {
     $.ajax({
-        url: "/Home/DeleteSurvey",
+        url: "/Admin/DeleteSurvey",
         method: "GET",
         data: {
             surveyId: surveyId
@@ -116,5 +115,9 @@ $(document).ready(function () {
 
     $(document).on("click", ".remove-option-button", function () {
         $(this).closest(".option-input").remove();
+    });
+
+    $(document).on("click", ".profile-avatar", function () {
+        $('.profile-image input[type="file"]').click();
     });
 });

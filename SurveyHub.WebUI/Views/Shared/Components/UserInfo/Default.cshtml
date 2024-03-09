@@ -10,18 +10,17 @@
                         
                         <a class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="menu-profile">
-                                <span class="name">@Model.Name @Model.Surname</span>
+                                <span class="name">@Model.User.Name @Model.User.Surname</span>
                             </div>
                         </a>
 
                         <div class="dropdown-menu">
                             <div class="profile-header">
-                                <h5 class="fullname">@Model.Name @Model.Surname</h5>
-                                <h7 class="username">@@@Model.Username</h7>
+                                <h5 class="fullname">@Model.User.Name @Model.User.Surname</h5>
+                                <h7 class="username">@@@Model.User.UserName</h7>
                             </div>
                             <ul>
-                                <li><a asp-action="Profile" asp-controller="Home">Profile</a></li>
-                                <li><a asp-action="Settings" asp-controller="Home">Settings</a></li>
+                                <li><a href="/Account/Profile?userId=@Model.User.Id">Profile</a></li>
                                 <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
                             </ul>
                         </div>

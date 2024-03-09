@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+}
+
+@model ProfileDto
+
+<div class="profile-main-container">
+    <div class="profile-container">
+        <div class="profile-header">
+            <img class="profile-banner" src="/images/background.png" alt="image">
+            <img class="profile-avatar" src="/images/users/no-profile.jpg" alt="image">
+
+            @if (@Model.IsSelf) {
+                <form asp-controller="Account" asp-action="Profile" asp-route-userId="@Model.User.Id" asp-route-file="@Model.File" method="post" enctype="multipart/form-data" role="form" class="profile-image">
+                    <input type="file" asp-for="@Model.File">
+                    <button type="submit" class="btn btn-info">Upload Image</button>
+                </form>
+            }
+        </div>
+        <div class="profile-main">
+            <p class="profile-fullname">@Model.User.Name @Model.User.Surname</p>
+            <p class="profile-username">@@@Model.User.UserName</p>
+            <p class="profile-email">@Model.User.Email</p>
+            <div class="profile-statistics">
+                <div class="profile-statistic">
+                    <span class="statistic-name">Surveys</span>
+                    <span class="statistic-value">@Model.SurveysCount</span>
+                </div>
+                <div class="profile-statistic">
+                    <span class="statistic-name">Votes</span>
+                    <span class="statistic-value">@Model.VotesCount</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

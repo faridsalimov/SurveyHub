@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SurveyHub.Entities.Entity;
 using SurveyHub.WebUI.Dtos;
+using SurveyHub.WebUI.Helpers;
 
 namespace SurveyHub.WebUI.Controllers
 {
@@ -10,18 +12,29 @@ namespace SurveyHub.WebUI.Controllers
         private readonly UserManager<CustomIdentityUser> _userManager;
         private readonly RoleManager<CustomIdentityRole> _roleManager;
         private readonly SignInManager<CustomIdentityUser> _signInManager;
-        private CustomIdentityDbContext _customIdentityDbContext;
+        private CustomIdentityDbContext _dbContext;
+        private IWebHostEnvironment _webHost;
 
-        public AccountController(UserManager<CustomIdentityUser> userManager, RoleManager<CustomIdentityRole> roleManager, SignInManager<CustomIdentityUser> signInManager, CustomIdentityDbContext customIdentityDbContext)
+        public AccountController(UserManager<CustomIdentityUser> userManager, RoleManager<CustomIdentityRole> roleManager, SignInManager<CustomIdentityUser> signInManager, CustomIdentityDbContext dbContext, IWebHostEnvironment webHost)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
-            _customIdentityDbContext = customIdentityDbContext;
+            _dbContext = dbContext;
+            _webHost = webHost;
         }
 
-        [HttpGet]
         public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Profile()
         {
             return View();
         }
@@ -34,11 +47,11 @@ namespace SurveyHub.WebUI.Controllers
                 var signIn = await _signInManager.PasswordSignInAsync(customIdentityUserLoginDto.Username, customIdentityUserLoginDto.Password, customIdentityUserLoginDto.RememberMe, false);
                 if (signIn.Succeeded)
                 {
-                    var customIdentityUser = _customIdentityDbContext.Users.SingleOrDefault(i => i.UserName == customIdentityUserLoginDto.Username);
+                    var customIdentityUser = _dbContext.Users.SingleOrDefault(i => i.UserName == customIdentityUserLoginDto.Username);
                     if (customIdentityUser != null)
                     {
-                        _customIdentityDbContext.Update(customIdentityUser);
-                        await _customIdentityDbContext.SaveChangesAsync();
+                        _dbContext.Update(customIdentityUser);
+                        await _dbContext.SaveChangesAsync();
                     }
 
                     return RedirectToAction("Index", "Home");
@@ -46,12 +59,6 @@ namespace SurveyHub.WebUI.Controllers
             }
 
             return View(customIdentityUserLoginDto);
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
         }
 
         [HttpPost]
@@ -99,9 +106,58 @@ namespace SurveyHub.WebUI.Controllers
         public async Task<IActionResult> LogOut()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            _customIdentityDbContext.Update(user);
-            await _customIdentityDbContext.SaveChangesAsync();
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.Update(user);
+            await _dbContext.SaveChangesAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest();
+            }
+
+            var localUser = await _userManager.GetUserAsync(HttpContext.User);
+            if (localUser == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var helper = new ImageHelper(_webHost);
+            var userSurveysCount = await _dbContext.Surveys.Where(s => s.CreatorId == user.Id).CountAsync();
+            var userVotesCount = await _dbContext.Responses.Where(r => r.UserId == user.Id).CountAsync();
+
+            ProfileDto profileDto = new ProfileDto
+            {
+                User = user,
+                SurveysCount = userSurveysCount,
+                VotesCount = userVotesCount,
+                IsSelf = (localUser == user)
+            };
+
+            if (profileDto.File != null)
+            {
+                profileDto.ImageUrl = await helper.SaveFile(profileDto.File);
+                user.ImageUrl = profileDto.ImageUrl;
+                _dbContext.Update(user);
+                await _dbContext.SaveChangesAsync();
+            }
+
+            ViewBag.User = user;
+            return View(profileDto);
         }
     }
 }

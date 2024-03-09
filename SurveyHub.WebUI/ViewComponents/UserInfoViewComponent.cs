@@ -31,10 +31,8 @@ namespace SurveyHub.WebUI.ViewComponents
 
             var userInfoDto = new UserInfoDto
             {
-                Name = user.Name,
-                Surname = user.Surname,
-                Username = user.UserName,
-                Email = user.Email,
+                User = user,
+                ImageUrl = user.ImageUrl,
                 IsAdmin = isAdmin
             };
 

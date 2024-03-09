@@ -1,11 +1,11 @@
-﻿namespace SurveyHub.WebUI.Dtos
+﻿using SurveyHub.Entities.Entity;
+
+namespace SurveyHub.WebUI.Dtos
 {
     public class UserInfoDto
     {
-        public string? Name { get; set; }
-        public string? Surname { get; set; }
-        public string? Username { get; set; }
-        public string? Email { get; set; }
+        public CustomIdentityUser? User { get; set; }
+        public string? ImageUrl { get; set; }
         public bool IsAdmin { get; set; } = false;
     }
 }

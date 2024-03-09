@@ -13,5 +13,6 @@ namespace SurveyHub.Entities.Entity
     {
         public string? Name { get; set; }
         public string? Surname { get; set; }
+        public string? ImageUrl { get; set; } = "no-profile.jpg";
     }
 }
