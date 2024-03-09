@@ -1,11 +1,6 @@
 ﻿using SurveyHub.Business.Abstract;
 using SurveyHub.DataAccess.Abstract;
 using SurveyHub.Entities.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyHub.Business.Concrete
 {
@@ -18,14 +13,15 @@ namespace SurveyHub.Business.Concrete
             _userDal = userDal;
         }
 
-        public Task Add(CustomIdentityUser user)
+        public async Task Add(CustomIdentityUser user)
         {
-            throw new NotImplementedException();
+            await _userDal.Add(user);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(string id)
         {
-            throw new NotImplementedException();
+            var item = await _userDal.Get(u => u.Id == id);
+            await _userDal.Delete(item);
         }
 
         public async Task<List<CustomIdentityUser>> GetAll()
@@ -33,14 +29,14 @@ namespace SurveyHub.Business.Concrete
             return await _userDal.GetList();
         }
 
-        public Task<CustomIdentityUser> GetById(int id)
+        public async Task<CustomIdentityUser> GetById(string id)
         {
-            throw new NotImplementedException();
+            return await _userDal.Get(s => s.Id == id);
         }
 
-        public Task Update(CustomIdentityUser user)
+        public async Task Update(CustomIdentityUser user)
         {
-            throw new NotImplementedException();
+            await _userDal.Update(user);
         }
     }
 }

@@ -55,7 +55,7 @@ nav {
     padding: 20px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -137,7 +137,7 @@ nav {
     padding: 15px;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-menu .fullname {
@@ -179,6 +179,7 @@ nav {
 }
 
 .survey-container {
+    position: relative;
     display: flex;
     border: 1px solid #ccc;
     padding: 20px;
@@ -186,7 +187,7 @@ nav {
     background-color: #f9f9f9;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .survey-container .profile-image {
@@ -316,7 +317,7 @@ nav {
     padding: 20px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .add-survey-container form {
@@ -388,4 +389,17 @@ nav {
 
 .remove-option-button:hover {
     background-color: #bd2130;
+}
+
+.delete-survey {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 15px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    background-color: indianred;
+    border: none;
+    border-radius: 5px;
 }

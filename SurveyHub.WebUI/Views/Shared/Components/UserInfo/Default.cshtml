@@ -6,6 +6,8 @@
             <div class="others-options d-flex align-items-center">
                 <div class="option-item">
                     <div class="dropdown profile-nav-item">
+                        <div id="user-info" is-admin="@Model.IsAdmin"></div>
+                        
                         <a class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="menu-profile">
                                 <span class="name">@Model.Name @Model.Surname</span>
@@ -26,7 +28,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </nav>
 </div>

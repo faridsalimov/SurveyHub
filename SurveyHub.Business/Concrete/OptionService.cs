@@ -1,12 +1,6 @@
 ﻿using SurveyHub.Business.Abstract;
 using SurveyHub.DataAccess.Abstract;
-using SurveyHub.DataAccess.EntityFramework;
 using SurveyHub.Entities.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyHub.Business.Concrete
 {
@@ -19,14 +13,15 @@ namespace SurveyHub.Business.Concrete
             _optionDal = optionDal;
         }
 
-        public Task Add(Option option)
+        public async Task Add(Option option)
         {
-            throw new NotImplementedException();
+            await _optionDal.Add(option);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var item = await _optionDal.Get(o => o.Id == id);
+            await _optionDal.Delete(item);
         }
 
         public async Task<List<Option>> GetAll()
@@ -34,14 +29,14 @@ namespace SurveyHub.Business.Concrete
             return await _optionDal.GetList();
         }
 
-        public Task<Option> GetById(int id)
+        public async Task<Option> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _optionDal.Get(o => o.Id == id);
         }
 
-        public Task Update(Option option)
+        public async Task Update(Option option)
         {
-            throw new NotImplementedException();
+            await _optionDal.Update(option);
         }
     }
 }

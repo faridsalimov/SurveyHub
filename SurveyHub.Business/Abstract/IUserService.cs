@@ -12,7 +12,7 @@ namespace SurveyHub.Business.Abstract
         Task<List<CustomIdentityUser>> GetAll();
         Task Add(CustomIdentityUser user);
         Task Update(CustomIdentityUser user);
-        Task Delete(int id);
-        Task<CustomIdentityUser> GetById(int id);
+        Task Delete(string id);
+        Task<CustomIdentityUser> GetById(string id);
     }
 }

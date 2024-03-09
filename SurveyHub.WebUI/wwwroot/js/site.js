@@ -3,24 +3,33 @@
         url: "/Home/GetAllSurveys",
         method: "GET",
         success: function (data) {
+            var isAdmin = document.getElementById("user-info").getAttribute("is-admin");
             var surveyContext = "";
 
             for (var i = 0; i < data.surveys.length; i++) {
-                console.log(data.surveys[i].publishTime);
                 surveyContext += `
-                    <div class="survey-container">
-                        <img src="https://cdn.discordapp.com/attachments/1070777183326437496/1212130350193573968/no-profile.png?ex=65f0b75b&is=65de425b&hm=dc283c1eec61d2f67e20dce222da1edfade26939627f35f4e16e1a6d5289f181&" alt="Profile" class="profile-image">
+                    <div class="survey-container" key="${data.surveys[i].id}">
+                        <img src="/images/users/no-profile.jpg" alt="${data.surveys[i].creator.userName}" class="profile-image">
                         <div class="survey-main">
-                            <div class="survey-username">${data.surveys[i].creator.userName}</div>
-                            <div class="survey-date">${data.surveys[i].publishTime.day}/${data.surveys[i].publishTime.month}/${data.surveys[i].publishTime.year} ${data.surveys[i].publishTime.hour}:${data.surveys[i].publishTime.minute}/${data.surveys[i].publishTime.second}</div>
-                            <div class="survey-content">
-                                <h5>${data.surveys[i].content}</h5>
-                                <span class="survey-category category-${data.surveys[i].category}">${data.surveys[i].category}</span>
-                                <div class="options-container" id="options-${data.surveys[i].id}"></div>
-                            </div>
+                            
+                `;
+
+                if (isAdmin === "is-admin") {
+                    surveyContext += `
+                        <i class="delete-survey fa fa-trash" onclick="deleteSurvey(${data.surveys[i].id})"></i>
+                    `
+                }
+
+                surveyContext += `
+                        <div class="survey-username">${data.surveys[i].creator.userName}</div>
+                        <div class="survey-date">${data.surveys[i].publishTime}</div>
+                        <div class="survey-content">
+                            <h5>${data.surveys[i].content}</h5>
+                            <span class="survey-category category-${data.surveys[i].category}">${data.surveys[i].category}</span>
+                            <div class="options-container" id="options-${data.surveys[i].id}"></div>
                         </div>
                     </div>
-                `;
+                </div>`
             }
 
             var id = document.getElementById("surveys-container");
@@ -71,6 +80,24 @@ async function saveResponse(surveyId, optionId) {
             optionId: optionId
         },
         success: function (response) {
+            GetAllSurveys();
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+async function deleteSurvey(surveyId) {
+    $.ajax({
+        url: "/Home/DeleteSurvey",
+        method: "GET",
+        data: {
+            surveyId: surveyId
+        },
+        success: function (response) {
+            GetAllSurveys();
             console.log(response);
         },
         error: function (xhr, status, error) {
@@ -89,21 +116,5 @@ $(document).ready(function () {
 
     $(document).on("click", ".remove-option-button", function () {
         $(this).closest(".option-input").remove();
-    });
-
-    $("#add-survey-form").submit(function (event) {
-        var formData = $(this).serialize();
-
-        $.ajax({
-            url: "/Home/AddSurvey",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
     });
 });
